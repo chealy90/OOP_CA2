@@ -3,12 +3,15 @@ package org.example;
 import java.util.ArrayList;
 
 /**
- *  Your Name:
- *  Class Group:
+ *  Your Name: Christopher Healy
+ *  Class Group: SD2A
  */
 public class Question1 {    // Interfaces
     public static void main(String[] args) {
         System.out.println("Question 1");
+
+        //triangular prism
+        //side length -> triangle length of equilateral face
 
         // create container here...
         ContainerManager containerManager = new ContainerManager();

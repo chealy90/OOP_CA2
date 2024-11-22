@@ -24,9 +24,9 @@ public class Pyramid implements IMeasurableContainer {
 
     @Override
     public double rectangularVolume(){
-        double faceHeight = Math.sqrt(Math.pow(this.sideLength, 2) - Math.pow((this.length / 2), 2));
-        double heightFromBase = Math.sqrt(Math.pow(faceHeight, 2) - Math.pow(this.length/2, 2));
-        return this.length * this.length * heightFromBase;
+        double height = Math.sqrt(Math.pow(this.sideLength, 2) - Math.pow(sideLength/2, 2));
+        return height * this.sideLength * this.length;
+
     }
 
 
