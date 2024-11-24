@@ -20,13 +20,15 @@ public class Question2  // Car Parking - Stack
         do {
             System.out.print("Enter action: ");
             input = kb.nextInt();
+
+            //add car to driveway
             if (input > 0) {
                 driveway.push(input);
                 System.out.println("Driveway end -> " + driveway.toString() +" <-start");
                 System.out.println();
             }
 
-
+            //remove car from driveway
             else if (input < 0){
                 //temporarily move to street
                 while (driveway.peek()!=Math.abs(input)){
@@ -38,15 +40,9 @@ public class Question2  // Car Parking - Stack
                 //replace cars
                 while (!street.isEmpty()){
                     driveway.push(street.pop());
-
                 }
                 System.out.println("Driveway end -> " + driveway.toString() +" <-start");
             }
-
-            //print driveway
-            //print stack
-            //deal with adding car already being in there
-            //deal with removing car not already in there
 
         } while (input != 0);
         System.out.println("Final state of driveway: end -> " + driveway.toString() + " <- start");
