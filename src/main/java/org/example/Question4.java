@@ -1,10 +1,12 @@
 package org.example;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Scanner;
 
 /**
- *  Name:
+ *  Name: Christopher Healy
  *  Class Group:
  */
 
@@ -16,6 +18,17 @@ public class Question4  // Flood Fill (Stack, 2D Array)
     public static void start()
     {
         int[][] arr = floodFillStart();
+        Scanner kb = new Scanner(System.in);
+
+        System.out.println("Enter start row:");
+        int startRow = kb.nextInt();
+        System.out.println("Enter start column:");
+        int startColumn = kb.nextInt();
+
+        fill(startRow, startColumn, arr);
+        display(arr);
+
+
     }
 
     /*
@@ -49,6 +62,31 @@ public class Question4  // Flood Fill (Stack, 2D Array)
     }
     private static void fill(int r, int c, int[][] arr)
     {
+        //create initial conditions
+        Cell c1 = new Cell(r, c);
+        Deque<Cell> cellStack = new ArrayDeque<>();
+        cellStack.push(c1);
+        int iterationNumber = 1;
+
+        //main loop
+        while (!cellStack.isEmpty()){
+            Cell topCell = cellStack.pop();
+            int x = topCell.getX();
+            int y = topCell.getY();
+
+            if (arr[x][y] != 0){
+                continue;
+            }
+            arr[x][y] = iterationNumber;
+
+            //check neighbors
+            if (y!=0 && arr[x][y-1]==0){cellStack.push(new Cell(x, y-1));} //N
+            if (y!=9 && arr[x][y+1]==0){cellStack.push(new Cell(x, y+1));} //S
+            if (x!=9 && arr[x+1][y]==0){cellStack.push(new Cell(x+1, y));} //E
+            if (x!=0 && arr[x-1][y]==0){cellStack.push(new Cell(x-1, y));} //W
+
+            iterationNumber++;
+        }
 
     }
 
