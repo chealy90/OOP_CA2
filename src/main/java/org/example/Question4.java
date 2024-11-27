@@ -20,9 +20,9 @@ public class Question4  // Flood Fill (Stack, 2D Array)
         int[][] arr = floodFillStart();
         Scanner kb = new Scanner(System.in);
 
-        System.out.println("Enter start row:");
+        System.out.print("Enter start row:");
         int startRow = kb.nextInt();
-        System.out.println("Enter start column:");
+        System.out.print("Enter start column:");
         int startColumn = kb.nextInt();
 
         fill(startRow, startColumn, arr);
