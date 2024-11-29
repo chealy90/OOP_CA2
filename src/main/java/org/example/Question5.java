@@ -12,8 +12,9 @@ public class Question5 {    //Java Identifier Count (Map)
 
     public static void readFile(String fileName) throws FileNotFoundException {
         Scanner fileInput = new Scanner(new File("src/main/java/org/example/Question1.java"));
-        Map<String, Integer> identifierCountMap = new HashMap<>();
-        Map<String, HashMap<Integer, String>> identifierLineMap = new HashMap<>();
+        //using a tree map means the identifiers will automatically be stored in alphabetical order via String's natural ordering
+        Map<String, Integer> identifierCountMap = new TreeMap<>();
+        Map<String, HashMap<Integer, String>> identifierLineMap = new TreeMap<>();
         int lineNumber = 1;
         //parse each line
         while (fileInput.hasNextLine()){
@@ -52,16 +53,15 @@ public class Question5 {    //Java Identifier Count (Map)
         }
 
         //print out maps
-        Set<String> identifiers = identifierLineMap.keySet();
-        for (String identifier: identifiers){
+        Set<String> identifierKeys = identifierLineMap.keySet();
+        for (String identifier: identifierKeys){
             //print count
             System.out.println("\nIdentifier \"" + identifier + "\" appears " + identifierCountMap.get(identifier) + " times:");
 
             //print each line
-            HashMap<Integer, String> lineMap = identifierLineMap.get(identifier);
-            Set<Integer> lineNumbers = lineMap.keySet();
-            for (int line: lineNumbers){
-                System.out.println(line + ": " + lineMap.get(line));
+            Set<Map.Entry<Integer, String>> lineMap = identifierLineMap.get(identifier).entrySet();
+            for (Map.Entry<Integer, String> entry: lineMap){
+                System.out.println(entry.getKey() + ": " + entry.getValue());
             }
         }
 
