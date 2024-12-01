@@ -4,8 +4,8 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Scanner;
 /**
- *  Name:
- *  Class Group:
+ *  Name: Christopher Healy
+ *  Class Group: SD2A
  */
 public class Question7  // Shares Tax Calculations (Queue)
 {
