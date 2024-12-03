@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class Question10 {
     public static void display(int[][] image) {
         for (int x = 0; x < image.length; x++) {
@@ -11,6 +14,10 @@ public class Question10 {
     }
 
     public void solve(int x, int y, DIRECTION dir) {
+        Deque<PathPoint> paths = new ArrayDeque<>();
+        PathPoint currentPoint = new PathPoint(x, y, dir);
+        //push all paths from current point
+        //paths.push(new PathPoint()));
 
     }
 }
