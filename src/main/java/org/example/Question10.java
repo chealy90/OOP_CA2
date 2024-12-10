@@ -25,45 +25,49 @@ public class Question10 {
     }
 
     public static void solve(int x, int y, DIRECTION dir, int[][] image) {
+        //set up
         Deque<PathPoint> paths = new ArrayDeque<>();
         //start point
         PathPoint currentPoint = new PathPoint(x, y, dir);
         boolean solved = false;
+        System.out.printf("Starting at\n X: %d, Y: %d\n", x, y);
 
         //push all paths from current point
-        paths.push(new PathPoint(x, y, DIRECTION.NORTH));
+        if (x != 0 && image[x-1][y]!=1){paths.push(new PathPoint(x-1, y, DIRECTION.NORTH));}
+        if (x != image.length-1 && image[x+1][y]!=1){paths.push(new PathPoint(x+1, y, DIRECTION.SOUTH));}
+        if (y != 0 && image[x][y-1] != 1){paths.push(new PathPoint(x, y-1, DIRECTION.WEST));}
+        if (y!=image[0].length-1 && image[x][y+1]!=1){paths.push(new PathPoint(x, y+1, DIRECTION.EAST));}
 
 
-
-/*
-        if (x != 0 && image[x-1][y]!=0){paths.push(new PathPoint(x-1, y, DIRECTION.NORTH));}
-        if (x != image.length-1 && image[x+1][y]!=0){paths.push(new PathPoint(x+1, y, DIRECTION.SOUTH));}
-        if (y != 0 && image[x][y-1] != 0){paths.push(new PathPoint(x, y-1, DIRECTION.WEST));}
-        if (y!=image[0].length-1 && image[x][y+1]!=0){paths.push(new PathPoint(x, y+1, DIRECTION.EAST));}
-
-
- */
         while(!paths.isEmpty() && !solved){
             PathPoint path = paths.pop();
             int xPos = path.x;
             int yPos = path.y;
-            System.out.println("Xpos " + xPos +  " yPos: "+yPos);
+
+            int prevX = xPos;
+            int prevY = yPos;
+            System.out.println("X: " + xPos +  ", Y: "+yPos);
             switch (path.direction){
                 case DIRECTION.NORTH:
                     //check for solved;
                     if (xPos==0){
                         solved = true;
+                        System.out.printf("X: %d, Y: %d\n", xPos, yPos);
+                        break;
                     }
 
                     while (image[xPos][yPos] != 1){
                         //intersections - east and west
                         if (image[xPos][yPos-1] == 0){
-                            paths.push(new PathPoint(xPos, yPos, DIRECTION.WEST));
+                            paths.push(new PathPoint(xPos, yPos - 1, DIRECTION.WEST));
                         }
                         if (image[xPos][yPos+1]==0){
-                            paths.push(new PathPoint(xPos, yPos, DIRECTION.EAST));
+                            paths.push(new PathPoint(xPos, yPos + 1, DIRECTION.EAST));
                         }
-                        xPos--;
+                        //check that it wont cause an IndexOutOfBounds
+                        if (xPos!=0)xPos--;
+
+
                     }
                     break;
 
@@ -71,36 +75,40 @@ public class Question10 {
                     //check for solved;
                     if (xPos==image.length-1){
                         solved = true;
+                        System.out.printf("X: %d, Y: %d\n", xPos, yPos);
                         break;
                     }
                     while (image[xPos][yPos] != 1){
                         //intersections - east and west
                         if (image[xPos][yPos-1] == 0){
-                            paths.push(new PathPoint(xPos, yPos, DIRECTION.WEST));
+                            paths.push(new PathPoint(xPos, yPos - 1, DIRECTION.WEST));
                         }
                         if (image[xPos][yPos+1]==0){
-                            paths.push(new PathPoint(xPos, yPos, DIRECTION.EAST));
+                            paths.push(new PathPoint(xPos, yPos + 1, DIRECTION.EAST));
                         }
-                        xPos++;
+                        if (xPos!=image.length-1)xPos++;
                     }
                     break;
 
 
                 case DIRECTION.WEST:
-                    //check for solved;
-                    if (yPos==0){
-                        solved = true;
-                    }
                     while (image[xPos][yPos] != 1){
-                        //intersections - north and south
-                        if (image[xPos - 1][yPos] == 0){
-                            paths.push(new PathPoint(xPos, yPos, DIRECTION.NORTH));
-                        }
-                        if (image[xPos + 1][yPos]==0){
-                            paths.push(new PathPoint(xPos, yPos, DIRECTION.SOUTH));
+                        //check for solved;
+                        if (yPos==0){
+                            solved = true;
+                            System.out.printf("X: %d, Y: %d\n", xPos, yPos);
+                            break;
                         }
 
-                        yPos--;
+                        //intersections - north and south
+                        if (image[xPos - 1][yPos] == 0){
+                            paths.push(new PathPoint(xPos - 1, yPos, DIRECTION.NORTH));
+                        }
+                        if (image[xPos + 1][yPos]==0){
+                            paths.push(new PathPoint(xPos + 1, yPos, DIRECTION.SOUTH));
+                        }
+                        if (yPos!=0)yPos--;
+
                     }
                     break;
 
@@ -108,25 +116,23 @@ public class Question10 {
                     //check for solved;
                     if (yPos==0){
                         solved = true;
+                        System.out.printf("X: %d, Y: %d\n", xPos, yPos);
                         break;
                     }
                     while (image[xPos][yPos] != 1){
                         //intersections - north and south
                         if (image[xPos - 1][yPos] == 0){
-                            paths.push(new PathPoint(xPos, yPos, DIRECTION.NORTH));
+                            paths.push(new PathPoint(xPos - 1, yPos, DIRECTION.NORTH));
                         }
                         if (image[xPos + 1][yPos]==0){
-                            paths.push(new PathPoint(xPos, yPos, DIRECTION.SOUTH));
+                            paths.push(new PathPoint(xPos + 1, yPos, DIRECTION.SOUTH));
                         }
-
-                        yPos++;
+                        if (yPos!=image[0].length-1)yPos++;
                     }
                     break;
             }
         }
-
-        System.out.printf("Solution starting at x=%d, y=%d", x, y);
-        System.out.println(paths.toString());
+        System.out.println("Finished");
     }
 
     public static void populateMaze(int[][] maze){
