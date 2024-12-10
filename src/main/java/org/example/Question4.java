@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
  *  Name: Christopher Healy
- *  Class Group:
+ *  Class Group: SD2A
  */
 
 public class Question4  // Flood Fill (Stack, 2D Array)

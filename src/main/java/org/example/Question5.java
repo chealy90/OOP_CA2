@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  *  Name: Christopher Healy
- *  Class Group: D00270638
+ *  Class Group: SD2A
  */
 public class Question5 {    //Java Identifier Count (Map)
 

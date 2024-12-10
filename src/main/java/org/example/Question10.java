@@ -6,6 +6,11 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Scanner;
 
+/**
+ *  Name: Christopher Healy
+ *  Class Group: SD2A
+ */
+
 public class Question10 {
     public static void main(String[] args){
         int[][] image = new int[8][8];
@@ -27,8 +32,6 @@ public class Question10 {
     public static void solve(int x, int y, DIRECTION dir, int[][] image) {
         //set up
         Deque<PathPoint> paths = new ArrayDeque<>();
-        //start point
-        PathPoint currentPoint = new PathPoint(x, y, dir);
         boolean solved = false;
         System.out.printf("Starting at\n X: %d, Y: %d\n", x, y);
 
@@ -44,8 +47,6 @@ public class Question10 {
             int xPos = path.x;
             int yPos = path.y;
 
-            int prevX = xPos;
-            int prevY = yPos;
             System.out.println("X: " + xPos +  ", Y: "+yPos);
             switch (path.direction){
                 case DIRECTION.NORTH:
@@ -65,6 +66,7 @@ public class Question10 {
                             paths.push(new PathPoint(xPos, yPos + 1, DIRECTION.EAST));
                         }
                         //check that it wont cause an IndexOutOfBounds
+                        //move along if not at edge
                         if (xPos!=0)xPos--;
 
 
@@ -86,6 +88,7 @@ public class Question10 {
                         if (image[xPos][yPos+1]==0){
                             paths.push(new PathPoint(xPos, yPos + 1, DIRECTION.EAST));
                         }
+                        //move along if not at edge
                         if (xPos!=image.length-1)xPos++;
                     }
                     break;
@@ -107,6 +110,7 @@ public class Question10 {
                         if (image[xPos + 1][yPos]==0){
                             paths.push(new PathPoint(xPos + 1, yPos, DIRECTION.SOUTH));
                         }
+                        //move along if not at edge
                         if (yPos!=0)yPos--;
 
                     }
@@ -127,6 +131,7 @@ public class Question10 {
                         if (image[xPos + 1][yPos]==0){
                             paths.push(new PathPoint(xPos + 1, yPos, DIRECTION.SOUTH));
                         }
+                        //move along if not at edge
                         if (yPos!=image[0].length-1)yPos++;
                     }
                     break;
@@ -137,8 +142,6 @@ public class Question10 {
 
     public static void populateMaze(int[][] maze){
         final String mazeFile = "./map.txt";
-        final int mazeHeight = maze.length;
-        final int mazeWidth = maze[0].length;
         try {
             //populate maze
             Scanner in = new Scanner(new File(mazeFile));
